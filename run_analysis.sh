@@ -13,8 +13,8 @@ echo "Pythia8 Hadronization Analysis Pipeline"
 echo "=========================================="
 
 # Check if we're in the correct directory
-if [ ! -f "main.cc" ] || [ ! -f "plot_momenta.py" ]; then
-    echo "Error: Please run this script from the hadron directory containing main.cc and plot_momenta.py"
+if [ ! -f "main.cc" ] || [ ! -f "comprehensive_analysis.py" ]; then
+    echo "Error: Please run this script from the hadron directory containing main.cc and comprehensive_analysis.py"
     exit 1
 fi
 
@@ -72,29 +72,35 @@ fi
 
 echo "✓ Momentum data saved to momentum_data.csv"
 
-# Step 2: Run momentum analysis
+# Step 2: Run comprehensive analysis
 echo ""
 echo "=========================================="
-echo "Step 2: Analyzing momentum distributions"
+echo "Step 2: Running comprehensive analysis"
 echo "=========================================="
 
-echo "Running Python analysis script..."
-$CONDA_RUN python plot_momenta.py > analysis_output.log 2>&1
+echo "Running comprehensive analysis script..."
+$CONDA_RUN python comprehensive_analysis.py > comprehensive_analysis.log 2>&1
 
 if [ $? -eq 0 ]; then
-    echo "✓ Analysis completed successfully"
+    echo "✓ Comprehensive analysis completed successfully"
 else
-    echo "✗ Analysis failed. Check analysis_output.log for details."
+    echo "✗ Analysis failed. Check comprehensive_analysis.log for details."
     exit 1
 fi
 
-# Check if plots were generated
-if [ ! -f "momentum_analysis.png" ]; then
-    echo "✗ Error: momentum_analysis.png was not generated"
+# Check if plots directory and files were generated
+if [ ! -d "plots" ]; then
+    echo "✗ Error: plots directory was not created"
     exit 1
 fi
 
-echo "✓ Analysis plots saved to momentum_analysis.png"
+plot_count=$(ls plots/*.png 2>/dev/null | wc -l)
+if [ "$plot_count" -lt 6 ]; then
+    echo "✗ Error: Expected 6 plot files, found $plot_count"
+    exit 1
+fi
+
+echo "✓ Analysis plots saved to plots/ directory ($plot_count files generated)"
 
 # Step 3: Summary
 echo ""
@@ -104,16 +110,27 @@ echo "=========================================="
 
 echo "Generated files:"
 echo "  - momentum_data.csv: Raw momentum data"
-echo "  - momentum_analysis.png: Analysis plots"
+echo "  - plots/momentum_components.png: Individual momentum distributions"
+echo "  - plots/energy_mass_distributions.png: Energy, mass, p_T, η distributions"
+echo "  - plots/property_correlations.png: Property correlation scatter plots"
+echo "  - plots/particle_type_analysis.png: Particle composition analysis"
+echo "  - plots/momentum_3d_visualization.png: 3D momentum space visualization"
+echo "  - plots/correlation_matrix.png: Property correlation heatmap"
 echo "  - simulation_output.log: Simulation log"
-echo "  - analysis_output.log: Analysis log"
+echo "  - comprehensive_analysis.log: Analysis log"
 
 echo ""
 echo "Summary of results:"
 echo "  Events generated: $(grep -c "^Event [0-9]:" simulation_output.log 2>/dev/null || echo "N/A")"
 echo "  Particles analyzed: $(wc -l < momentum_data.csv)"
-echo "  Plot file size: $(ls -lh momentum_analysis.png | awk '{print $5}')"
+echo "  Plot files generated: $(ls plots/*.png 2>/dev/null | wc -l)"
 
 echo ""
-echo "To view the plots, open momentum_analysis.png in an image viewer."
+echo "To view the plots, open the files in the plots/ directory:"
+echo "  - momentum_components.png"
+echo "  - energy_mass_distributions.png"
+echo "  - property_correlations.png"
+echo "  - particle_type_analysis.png"
+echo "  - momentum_3d_visualization.png"
+echo "  - correlation_matrix.png"
 echo "=========================================="
