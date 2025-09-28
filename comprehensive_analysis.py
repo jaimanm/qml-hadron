@@ -168,9 +168,9 @@ def create_particle_type_analysis(df, plots_dir):
 
     # Particle type labels
     particle_labels = {
-        211: 'π⁺', -211: 'π⁻', 321: 'K⁺', -321: 'K⁻',
-        130: 'K_L⁰', 2212: 'p⁺', -2212: 'p̄⁻',
-        2112: 'n⁰', -2112: 'n̄⁰'
+        211: 'pi+', -211: 'pi-', 321: 'K+', -321: 'K-',
+        130: 'K0', 2212: 'proton', -2212: 'antiproton',
+        2112: 'neutron', -2112: 'antineutron'
     }
 
     # Plot 1: Particle type distribution (pie chart)
@@ -209,12 +209,19 @@ def create_particle_type_analysis(df, plots_dir):
 
 def create_3d_momentum_visualization(df, plots_dir):
     """
-    Create 3D momentum space visualization.
+    Create 3D momentum space visualization with particle names.
     """
     fig = plt.figure(figsize=(12, 10))
 
     # Create 3D subplot
     ax = fig.add_subplot(111, projection='3d')
+
+    # Particle name mapping
+    particle_labels = {
+        211: 'pi+', -211: 'pi-', 321: 'K+', -321: 'K-',
+        130: 'K0', 2212: 'proton', -2212: 'antiproton',
+        2112: 'neutron', -2112: 'antineutron'
+    }
 
     # Color by particle type
     particle_ids = df['Particle_ID'].unique()
@@ -226,8 +233,9 @@ def create_3d_momentum_visualization(df, plots_dir):
         mask = df['Particle_ID'] == pid
         particle_data = df[mask]
         color = id_to_color[pid]
+        particle_name = particle_labels.get(pid, f'ID:{pid}')
         ax.scatter(particle_data['px'], particle_data['py'], particle_data['pz'],
-                  c=[color], label=f'ID:{pid}', alpha=0.7, s=50)
+                  c=[color], label=particle_name, alpha=0.7, s=50)
 
     ax.set_xlabel('p_x (GeV/c)')
     ax.set_ylabel('p_y (GeV/c)')
@@ -241,6 +249,9 @@ def create_3d_momentum_visualization(df, plots_dir):
     fig.savefig(f'{plots_dir}/momentum_3d_visualization.png', dpi=300, bbox_inches='tight')
     plt.close(fig)
     print(f"✓ Saved 3D momentum visualization to {plots_dir}/momentum_3d_visualization.png")
+
+    # Return the figure for interactive display
+    return fig
 
 def create_correlation_matrix(df, plots_dir):
     """
@@ -295,9 +306,9 @@ def print_statistics(df):
     print(f"\nPARTICLE TYPE BREAKDOWN:")
     particle_counts = df['Particle_ID'].value_counts()
     particle_labels = {
-        211: 'π⁺', -211: 'π⁻', 321: 'K⁺', -321: 'K⁻',
-        130: 'K_L⁰', 2212: 'p⁺', -2212: 'p̄⁻',
-        2112: 'n⁰', -2112: 'n̄⁰'
+        211: 'pi+', -211: 'pi-', 321: 'K+', -321: 'K-',
+        130: 'K0', 2212: 'proton', -2212: 'antiproton',
+        2112: 'neutron', -2112: 'antineutron'
     }
 
     for pid, count in particle_counts.items():
