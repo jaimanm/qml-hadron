@@ -1,0 +1,31 @@
+Loading momentum data...
+Loaded data for 70 particles from 10 events
+
+=== Momentum Analysis Statistics ===
+Total particles analyzed: 70
+Number of events: 10
+
+Momentum component statistics (GeV/c):
+  px: mean=0.004, std=0.276, min=-0.622, max=0.897
+  py: mean=-0.021, std=0.269, min=-0.797, max=0.580
+  pz: mean=0.172, std=1.182, min=-2.550, max=2.861
+  p_mag: mean=0.999, std=0.752, min=0.048, max=2.900
+
+Per-particle type statistics:
+  π⁻: 26 particles, <|p|>=0.805 GeV/c
+  K⁺: 3 particles, <|p|>=1.452 GeV/c
+  p⁺: 4 particles, <|p|>=1.591 GeV/c
+  n̄⁰: 5 particles, <|p|>=1.231 GeV/c
+  K⁻: 3 particles, <|p|>=0.967 GeV/c
+  π⁺: 24 particles, <|p|>=0.887 GeV/c
+  n⁰: 3 particles, <|p|>=1.877 GeV/c
+  p̄⁻: 2 particles, <|p|>=1.144 GeV/c
+
+Total momentum conservation check:
+  Σ p_x = 0.245580 GeV/c
+  Σ p_y = -1.458711 GeV/c
+  Σ p_z = 12.029113 GeV/c
+Creating momentum plots...
+
+Analysis complete! Plots saved as 'momentum_analysis.png'
+
