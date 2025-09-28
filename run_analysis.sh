@@ -18,12 +18,8 @@ if [ ! -f "main.cc" ] || [ ! -f "comprehensive_analysis.py" ]; then
     exit 1
 fi
 
-# Check if the executable exists
-if [ ! -f "hadron_simulation" ]; then
-    echo "Error: hadron_simulation executable not found. Please compile main.cc first."
-    echo "Run: g++ main.cc -o hadron_simulation \`pythia8-config --cxxflags --libs\`"
-    exit 1
-fi
+# Create necessary directories
+mkdir -p logs
 
 # Activate conda environment
 echo "Activating conda environment 'fcc'..."
@@ -48,6 +44,19 @@ fi
 
 echo "Environment check passed."
 
+# Compile C++ code if executable doesn't exist
+if [ ! -f "hadron_simulation" ]; then
+    echo "Compiling C++ simulation code..."
+    g++ main.cc -o hadron_simulation `pythia8-config --cxxflags --libs` 2> logs/compilation.log
+    if [ $? -ne 0 ]; then
+        echo "✗ Compilation failed. Check logs/compilation.log for details."
+        exit 1
+    fi
+    echo "✓ Compilation successful"
+else
+    echo "✓ Using existing executable"
+fi
+
 # Step 1: Run hadronization simulation
 echo ""
 echo "=========================================="
@@ -55,7 +64,7 @@ echo "Step 1: Running hadronization simulation"
 echo "=========================================="
 
 echo "Generating 10 hadronization events..."
-./hadron_simulation > simulation_output.log 2>&1
+./hadron_simulation > logs/simulation_output.log 2>&1
 
 if [ $? -eq 0 ]; then
     echo "✓ Simulation completed successfully"
@@ -79,12 +88,12 @@ echo "Step 2: Running comprehensive analysis"
 echo "=========================================="
 
 echo "Running comprehensive analysis script..."
-$CONDA_RUN python comprehensive_analysis.py > comprehensive_analysis.log 2>&1
+$CONDA_RUN python comprehensive_analysis.py > logs/comprehensive_analysis.log 2>&1
 
 if [ $? -eq 0 ]; then
     echo "✓ Comprehensive analysis completed successfully"
 else
-    echo "✗ Analysis failed. Check comprehensive_analysis.log for details."
+    echo "✗ Analysis failed. Check logs/comprehensive_analysis.log for details."
     exit 1
 fi
 
@@ -109,6 +118,7 @@ echo "Pipeline completed successfully!"
 echo "=========================================="
 
 echo "Generated files:"
+echo "  - hadron_simulation: Compiled C++ executable"
 echo "  - momentum_data.csv: Raw momentum data"
 echo "  - plots/momentum_components.png: Individual momentum distributions"
 echo "  - plots/energy_mass_distributions.png: Energy, mass, p_T, η distributions"
@@ -116,12 +126,13 @@ echo "  - plots/property_correlations.png: Property correlation scatter plots"
 echo "  - plots/particle_type_analysis.png: Particle composition analysis"
 echo "  - plots/momentum_3d_visualization.png: 3D momentum space visualization"
 echo "  - plots/correlation_matrix.png: Property correlation heatmap"
-echo "  - simulation_output.log: Simulation log"
-echo "  - comprehensive_analysis.log: Analysis log"
+echo "  - logs/compilation.log: Compilation log"
+echo "  - logs/simulation_output.log: Simulation log"
+echo "  - logs/comprehensive_analysis.log: Analysis log"
 
 echo ""
 echo "Summary of results:"
-echo "  Events generated: $(grep -c "^Event [0-9]:" simulation_output.log 2>/dev/null || echo "N/A")"
+echo "  Events generated: $(grep -c "^Event [0-9]:" logs/simulation_output.log 2>/dev/null || echo "N/A")"
 echo "  Particles analyzed: $(wc -l < momentum_data.csv)"
 echo "  Plot files generated: $(ls plots/*.png 2>/dev/null | wc -l)"
 

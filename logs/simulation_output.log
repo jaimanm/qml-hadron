@@ -1,0 +1,170 @@
+
+ *------------------------------------------------------------------------------------* 
+ |                                                                                    | 
+ |  *------------------------------------------------------------------------------*  | 
+ |  |                                                                              |  | 
+ |  |                                                                              |  | 
+ |  |   PPP   Y   Y  TTTTT  H   H  III    A      Welcome to the Lund Monte Carlo!  |  | 
+ |  |   P  P   Y Y     T    H   H   I    A A     This is PYTHIA version 8.315      |  | 
+ |  |   PPP     Y      T    HHHHH   I   AAAAA    Last date of change: 27 May 2025  |  | 
+ |  |   P       Y      T    H   H   I   A   A                                      |  | 
+ |  |   P       Y      T    H   H  III  A   A    Now is 27 Sep 2025 at 22:12:16    |  | 
+ |  |                                                                              |  | 
+ |  |   Program documentation and an archive of historic versions is found on:     |  | 
+ |  |                                                                              |  | 
+ |  |                               https://pythia.org/                            |  | 
+ |  |                                                                              |  | 
+ |  |   PYTHIA is authored by a collaboration consisting of:                       |  | 
+ |  |                                                                              |  | 
+ |  |   Javira Altmann, Christian Bierlich, Naomi Cooke, Nishita Desai,            |  | 
+ |  |   Ilkka Helenius, Philip Ilten, Leif Lonnblad, Stephen Mrenna,               |  | 
+ |  |   Christian Preuss, Torbjorn Sjostrand, and Peter Skands.                    |  | 
+ |  |                                                                              |  | 
+ |  |   The complete list of authors, including contact information and            |  | 
+ |  |   affiliations, can be found on https://pythia.org/.                         |  | 
+ |  |   Problems or bugs should be reported on email at authors@pythia.org.        |  | 
+ |  |                                                                              |  | 
+ |  |   The main program reference is C. Bierlich et al,                           |  | 
+ |  |   'A comprehensive guide to the physics and usage of Pythia 8.3',            |  | 
+ |  |   SciPost Phys. Codebases 8-r8.3 (2022) [arXiv:2203.11601 [hep-ph]]          |  | 
+ |  |                                                                              |  | 
+ |  |   PYTHIA is released under the GNU General Public Licence version 2          |  | 
+ |  |   or later. Please respect the MCnet Guidelines for Generator Authors        |  | 
+ |  |   and Users.                                                                 |  | 
+ |  |                                                                              |  | 
+ |  |   Disclaimer: this program comes without any guarantees.                     |  | 
+ |  |   Beware of errors and use common sense when interpreting results.           |  | 
+ |  |                                                                              |  | 
+ |  |   Copyright (C) 2025 Torbjorn Sjostrand                                      |  | 
+ |  |                                                                              |  | 
+ |  |                                                                              |  | 
+ |  *------------------------------------------------------------------------------*  | 
+ |                                                                                    | 
+ *------------------------------------------------------------------------------------* 
+
+
+ *-------  PYTHIA Flag + Mode + Parm + Word + FVec + MVec + PVec + WVec Settings (changes only)  ------------------* 
+ |                                                                                                                 | 
+ | Name                                          |                      Now |      Default         Min         Max | 
+ |                                               |                          |                                      | 
+ | ProcessLevel:all                              |                      off |           on                         | 
+ | StringZ:useOldAExtra                          |                       on |          off                         | 
+ |                                                                                                                 | 
+ *-------  End PYTHIA Flag + Mode + Parm + Word + FVec + MVec + PVec + WVec Settings  -----------------------------* 
+
+ --------  PYTHIA Particle Data Table (changed only)  ------------------------------------------------------------------------------
+ 
+      id   name            antiName         spn chg col      m0        mWidth      mMin       mMax       tau0    res dec ext vis wid
+             no onMode   bRatio   meMode     products 
+
+ no particle data has been changed from its default value 
+
+ --------  End PYTHIA Particle Data Table  -----------------------------------------------------------------------------------------
+
+
+ --------  PYTHIA Event Listing  (complete event)  ---------------------------------------------------------------------------------
+ 
+    no         id  name            status     mothers   daughters     colours      p_x        p_y        p_z         e          m 
+     0         90  (system)           -11     0     0     0     0     0     0      0.000      0.000      0.000     10.000     10.000
+     1          1  d                   23     0     0     0     0   101     0      0.000      0.000      5.000      5.000      0.000
+     2         -1  dbar                23     0     0     0     0     0   101      0.000      0.000     -5.000      5.000      0.000
+                                   Charge sum:  0.000           Momentum sum:      0.000      0.000      0.000     10.000     10.000
+
+ --------  End PYTHIA Event Listing  -----------------------------------------------------------------------------------------------
+
+ --------  PYTHIA Event Listing  (complete event)  ---------------------------------------------------------------------------------
+ 
+    no         id  name            status     mothers   daughters     colours      p_x        p_y        p_z         e          m 
+     0         90  (system)           -11     0     0     0     0     0     0      0.000      0.000      0.000     10.000     10.000
+     1          1  (d)                -23     0     0     3     8   101     0      0.000      0.000      5.000      5.000      0.000
+     2         -1  (dbar)             -23     0     0     3     8     0   101      0.000      0.000     -5.000      5.000      0.000
+     3        111  (pi0)              -83     1     2     9    10     0     0      0.161      0.236      3.691      3.705      0.135
+     4       -211  pi-                 83     1     2     0     0     0     0     -0.236      0.294      0.840      0.931      0.140
+     5        211  pi+                 83     1     2     0     0     0     0      0.631     -0.195     -0.597      0.901      0.140
+     6        111  (pi0)              -83     1     2    11    12     0     0     -0.670     -0.407     -0.575      0.982      0.135
+     7       -211  pi-                 84     1     2     0     0     0     0      0.003      0.386     -2.696      2.727      0.140
+     8        211  pi+                 84     1     2     0     0     0     0      0.111     -0.314     -0.662      0.754      0.140
+     9         22  gamma               91     3     0     0     0     0     0      0.103      0.042      1.081      1.087      0.000
+    10         22  gamma               91     3     0     0     0     0     0      0.058      0.193      2.610      2.618      0.000
+    11         22  gamma               91     6     0     0     0     0     0     -0.589     -0.386     -0.553      0.895      0.000
+    12         22  gamma               91     6     0     0     0     0     0     -0.081     -0.021     -0.023      0.086      0.000
+                                   Charge sum:  0.000           Momentum sum:      0.000      0.000     -0.000     10.000     10.000
+
+ --------  End PYTHIA Event Listing  -----------------------------------------------------------------------------------------------
+Event 0:
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+  pi+ (ID: 211)
+Event 1:
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+  pi+ (ID: 211)
+Event 2:
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  K_L0 (ID: 130)
+  pbar- (ID: -2212)
+  pi+ (ID: 211)
+  p+ (ID: 2212)
+  pi- (ID: -211)
+Event 3:
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+Event 4:
+  n0 (ID: 2112)
+  pi+ (ID: 211)
+  pbar- (ID: -2212)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+Event 5:
+  K+ (ID: 321)
+  pi- (ID: -211)
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  K_L0 (ID: 130)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+Event 6:
+  pi- (ID: -211)
+  p+ (ID: 2212)
+  nbar0 (ID: -2112)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+Event 7:
+  pi+ (ID: 211)
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+Event 8:
+  pi+ (ID: 211)
+  K+ (ID: 321)
+  pi- (ID: -211)
+  pi- (ID: -211)
+  K_L0 (ID: 130)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+Event 9:
+  pi+ (ID: 211)
+  pi- (ID: -211)
+  K+ (ID: 321)
+  K- (ID: -321)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+  pi+ (ID: 211)
+  pi- (ID: -211)
+
+ *-------  PYTHIA Error and Warning Messages Statistics  ----------------------------------------------------------* 
+ |                                                                                                                 | 
+ |  times   message                                                                                                | 
+ |                                                                                                                 | 
+ |      0   no errors or warnings to report                                                                        | 
+ |                                                                                                                 | 
+ *-------  End PYTHIA Error and Warning Messages Statistics  ------------------------------------------------------* 
