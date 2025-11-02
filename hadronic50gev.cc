@@ -7,14 +7,14 @@ using namespace Pythia8;
 int main() {
   Pythia pythia;
   pythia.readString("ProcessLevel:all = off");
-  pythia.readString("PartonLevel:ISR = on");
-  pythia.readString("PartonLevel:FSR = on");
+  pythia.readString("HadronLevel:all = on");
+  pythia.readString("HadronLevel:Decay = off");
   pythia.init();
   Event& event = pythia.event;
  
   
-  std::ofstream ofs("/home/arjsur/pythia_results/events_output_50gev.csv");
-  ofs << "Event,Particle,Particle_pz,Particle_pT,Particle_px, Particle_py\n";
+  std::ofstream ofs("/home/arjsur/pythia_results/events_output_100gev.csv");
+  ofs << "Event,Particle,Particle_pz,Particle_pT,Particle_px,Particle_py,Particle_E\n";
 
   int nEvent = 10000;
   for (int iEvent = 0; iEvent < nEvent; ++iEvent) {
@@ -28,16 +28,30 @@ int main() {
       continue;
     }
 
+    int mostEnergeticPion = -1;
+    double maxEnergy = 0.0;
+    
     for (int i = 0; i < event.size(); ++i) {
-      if (event[i].isFinal() && event[i].isHadron()) {
-        ofs << iEvent << ","
-            << "\"" << event[i].name() << "\","
-            << (std::abs(event[i].pz())) << ","
-            << event[i].pT() << ","
-            << event[i].px() << ","
-            << event[i].py() << "\n";
-        break;
+      int pidAbs = std::abs(event[i].id());
+      if (pidAbs == 111 || pidAbs == 211) {
+        if (event[i].isFinal()) {
+          double energy = event[i].e();
+          if (energy > maxEnergy) {
+            maxEnergy = energy;
+            mostEnergeticPion = i;
+          }
+        }
       }
+    }
+
+    if (mostEnergeticPion >= 0) {
+      ofs << iEvent << ","
+          << "\"" << event[mostEnergeticPion].name() << "\","
+          << std::abs(event[mostEnergeticPion].pz()) << ","
+          << event[mostEnergeticPion].pT() << ","
+          << event[mostEnergeticPion].px() << ","
+          << event[mostEnergeticPion].py() << ","
+          << event[mostEnergeticPion].e() << "\n";
     }
   }
 
