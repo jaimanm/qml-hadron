@@ -13,7 +13,7 @@ int main() {
   Event& event = pythia.event;
  
   
-  std::ofstream ofs("/home/arjsur/pythia_results/events_output_100gev.csv");
+  std::ofstream ofs("events_output_50gev.csv");
   ofs << "Event,Particle,Particle_pz,Particle_pT,Particle_px,Particle_py,Particle_E\n";
 
   int nEvent = 10000;
